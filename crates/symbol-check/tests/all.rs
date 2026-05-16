@@ -111,8 +111,8 @@ mod exe_stack {
 
         let assert = t.symcheck_exe().arg(obj).arg("--no-visibility").assert();
 
-        if t.is_ppc64be() || t.no_os() || t.binary_obj_format() != BinaryFormat::Elf {
-            // Ppc64be doesn't emit `.note.GNU-stack`, not relevant without an OS, and non-elf
+        if t.is_ppc64be_elfv1() || t.no_os() || t.binary_obj_format() != BinaryFormat::Elf {
+            // Ppc64be ELFv1 doesn't emit `.note.GNU-stack`, not relevant without an OS, and non-elf
             // targets don't use `.note.GNU-stack`.
             assert.success();
             return;
@@ -143,8 +143,8 @@ mod exe_stack {
 
         let assert = t.symcheck_exe().arg(obj).arg("--no-visibility").assert();
 
-        if t.is_ppc64be() || t.no_os() {
-            // Ppc64be doesn't emit `.note.GNU-stack`, not relevant without an OS.
+        if t.is_ppc64be_elfv1() || t.no_os() {
+            // Ppc64be ELFv1 doesn't emit `.note.GNU-stack`, not relevant without an OS.
             assert.success();
             return;
         }
@@ -312,8 +312,8 @@ impl TestTarget {
         self.triple.contains("-windows-msvc")
     }
 
-    fn is_ppc64be(&self) -> bool {
-        self.triple.starts_with("powerpc64-")
+    fn is_ppc64be_elfv1(&self) -> bool {
+        self.triple.starts_with("powerpc64-") && self.triple.ends_with("-gnu")
     }
 
     /// True if the target needs `--no-os` passed to symcheck.
