@@ -146,7 +146,7 @@ jobs:
         rustup default "$channel"
         rustup target add "$JOB_TARGET"
 
-    - uses: taiki-e/install-action@bfadeaba214680fb4ab63e710bcb2a6a17019fdc # v2.70.4
+    - uses: Gelbpunkt/install-action@c5bde84133dbe21cb5d13417c64e06c541d4c605 # v2.70.4
       with:
         tool: nextest@0.9.131
 
