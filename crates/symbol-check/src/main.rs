@@ -526,6 +526,8 @@ fn check_elf_exe_stack(obj: &ObjFile) -> Result<(), ExeStack> {
         return Ok(());
     }
 
+    println!("{:?}", obj.flags());
+
     // If there is no `.note.GNU-stack` and no executable sections, behavior differs by platform.
     match obj.architecture() {
         // PPC64 doesn't set `.note.GNU-stack` since GNU nested functions don't need a trampoline,
